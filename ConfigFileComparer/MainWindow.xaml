@@ -5,8 +5,58 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ConfigFileComparer"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="App.config Comparer" Height="700" Width="1000">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
 
+        <StackPanel Grid.Row="0" Orientation="Vertical">
+            <Label Style="{StaticResource labelStyle}" HorizontalAlignment="Center">Compare two config files</Label>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" HorizontalAlignment="Center" Orientation="Horizontal">
+            <Label Style="{StaticResource labelStyle}">Old File:</Label>
+            <TextBlock Text="{Binding FilePathOne.FileName, UpdateSourceTrigger=PropertyChanged}" Name="file1" Width="500"></TextBlock>
+            <Button Command="{Binding SelectFileOneCommand}" Name="fileOneButton">Choose File</Button>
+        </StackPanel>
+
+
+        <StackPanel Grid.Row="2" HorizontalAlignment="Center" Orientation="Horizontal">
+            <Label Style="{StaticResource labelStyle}">New File:</Label>
+            <TextBlock Text="{Binding FilePathTwo.FileName, UpdateSourceTrigger=PropertyChanged}" Name="file2" Width="500"></TextBlock>
+            <Button Command="{Binding SelectFileTwoCommand}" Name="fileTwoButton">Choose File</Button>
+        </StackPanel>
+
+        <StackPanel Grid.Row="3" Orientation="Vertical">
+            <Button Command="{Binding CompareFilesCommand}" Height="30" HorizontalAlignment="Center">Compare</Button>
+        </StackPanel>
+
+        <DataGrid Grid.Row="4" ItemsSource="{Binding Path=Sections}" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="*"  Header="Section/Tag Path" Binding="{Binding Name}" />
+                <DataGridTextColumn Width="* " Header="Name/Key" Binding="{Binding Identity}" />
+                <DataGridCheckBoxColumn Width="0.2*" Header="Missing?" Binding="{Binding Missing, Mode=OneWay}" IsReadOnly="True">
+                    <DataGridCheckBoxColumn.CellStyle>
+                        <Style TargetType="DataGridCell">
+                            <Setter Property="Background" 
+                                Value="Red" />
+                        </Style>
+                    </DataGridCheckBoxColumn.CellStyle>
+                </DataGridCheckBoxColumn>
+                <DataGridCheckBoxColumn Width="0.2*" Header="Different?" Binding="{Binding Different, Mode=OneWay}" IsReadOnly="True">
+                    <DataGridCheckBoxColumn.CellStyle>
+                        <Style TargetType="DataGridCell">
+                            <Setter Property="Background" 
+                                Value="Yellow" />
+                        </Style>
+                    </DataGridCheckBoxColumn.CellStyle>
+                </DataGridCheckBoxColumn>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </Window>

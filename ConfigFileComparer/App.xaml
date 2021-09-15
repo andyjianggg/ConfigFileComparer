@@ -4,6 +4,11 @@
              xmlns:local="clr-namespace:ConfigFileComparer"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <Style x:Key="labelStyle" TargetType="{x:Type Label}">
+            <Setter Property="VerticalAlignment" Value="Top" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="Margin" Value="0,0,0,5" />
+        </Style>
     </Application.Resources>
 </Application>
